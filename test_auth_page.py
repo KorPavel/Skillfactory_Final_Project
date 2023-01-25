@@ -154,6 +154,36 @@ def test_check_valid_ls_bad(browser, count_digits):
 # ----------------------------------------------------------------
 
 
+@pytest.mark.proba
+@pytest.mark.positive
+@pytest.mark.parametrize('length_value', [1, 19, 1000], ids='{} symbols'.format)
+@pytest.mark.parametrize('placeholder', [get_nums, letters_en, letters_ru, letters_cn, get_specsymbols],
+                         ids='{0.__name__}'.format)
+def test_check_length_login_value_good(browser, placeholder, length_value):
+    """ Позитивные тест-кейсы. Граничные значения. Проверка длины введённого логина """
+    page = AuthPage(browser)
+    page.open()
+    page.for_reset_bad_cases()
+    page.click_tab_login()
+    value = placeholder(length_value)
+    page.check_login_correct(value)
+
+
+# Эти тесты вызывают ошибку 500 !!!
+@pytest.mark.negative
+@pytest.mark.parametrize('length_value', [1200], ids='{} symbols'.format)
+@pytest.mark.parametrize('placeholder', [get_nums, letters_en, letters_ru, letters_cn, get_specsymbols],
+                         ids='{0.__name__}'.format)
+def test_check_length_login_value_bad(browser, placeholder, length_value):
+    """ Негативные тест-кейсы. Граничные значения. Проверка длины введённого логина """
+    page = AuthPage(browser)
+    page.open()
+    page.for_reset_bad_cases()
+    page.click_tab_login()
+    value = f'rtkid_{placeholder(length_value - 6)}'
+    page.check_login_correct(value, False)
+
+
 @pytest.mark.negative
 @pytest.mark.parametrize('symbols', [letters_en, letters_ru, get_specsymbols],
                          ids='digits+{0.__name__} symbols'.format)
