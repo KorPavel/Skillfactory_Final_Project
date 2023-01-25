@@ -61,19 +61,6 @@ class AuthPage(BasePage):
         sleep(2)
         assert account[1] in self.browser.current_url
 
-    # def should_be_auth_form_00(self):
-    #     """ Проверка формы авторизации """
-    #     sp = []
-    #     left = self.wait.until(EC.presence_of_all_elements_located(AuthPageLocators.LEFT_SIDE))
-    #     [sp.append(el.text) for el in left]
-    #     assert 'Авторизация' in sp[0], 'Форма "Авторизация" отсутствует'
-    #
-    # def should_be_logo_00(self):
-    #     """ Проверка слогана "Ростелеком" """
-    #     sp = []
-    #     right = self.wait.until(EC.presence_of_all_elements_located(AuthPageLocators.RIGHT_SIDE))
-    #     [sp.append(el.text) for el in right]
-    #     assert 'Ростелеком' in sp[0], 'Слоган "Ростелекома" отсутствует'
 
     def click_tab_phone(self):
         """ Метод кликает по табу 'Телефон' и проверяет изменение его цвета """
@@ -173,6 +160,7 @@ class AuthPage(BasePage):
         print(tab_type.get_attribute('value'))
 
     def check_phone_correct(self, tab, text, exp=True):
+        ''' Проверка корректности номера телефона '''
         if isinstance(text, int):
             param = get_nums(text)
         else:
@@ -196,6 +184,7 @@ class AuthPage(BasePage):
                     AuthPageLocators.LOG_AREA_NAME, 'Логин'))
 
     def check_email_correct(self, user, server, exp=True):
+        """ Проверка корректности имени адреса электронной почты """
         param = f'{letters_en(user)}@{letters_en(server)}.ru'
         self.click_tab_email()
         self.insert_to_login_area(param)
@@ -208,3 +197,11 @@ class AuthPage(BasePage):
                 'Поле приняло длину адреса электронной почты, большую, '
                 'чем предусмотрено стандартом')
 
+    def check_login_correct(self, param, exp=True):
+        """ Проверка значений и длины логина"""
+        self.send_params_to_relevant_areas(param, valid_user_data['password'])
+        if exp:
+            assert self.wait.until(EC.text_to_be_present_in_element(
+                AuthPageLocators.MESSAGE_ERR, 'Неверный логин или пароль'))
+        else:
+            self.is_not_element_present(*AuthPageLocators.MESSAGE_ERR)
