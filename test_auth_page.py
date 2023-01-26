@@ -16,7 +16,6 @@ def test_guest_should_see_login_form(browser):
     elements_right_side = ['Ростелеком']
     page.should_be_basic_content('right', elements_right_side)
     page.should_be_footer()
-    page.browser.save_screenshot('auth_page_elems.png')
 
 
 def test_guest_should_see_phone_auth(browser):
