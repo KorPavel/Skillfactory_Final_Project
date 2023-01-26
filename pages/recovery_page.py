@@ -2,9 +2,9 @@ from .base_page import BasePage
 from .locators import RecoveryPageLocators
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from datetime import datetime
 from time import sleep
 from ..settings import *
-import uuid
 
 
 class RecoveryPage(BasePage):
@@ -18,7 +18,7 @@ class RecoveryPage(BasePage):
         party = self.wait.until(EC.presence_of_all_elements_located(RecoveryPageLocators.RIGHT_SIDE)) \
             if side == 'right' else \
             self.wait.until(EC.presence_of_all_elements_located(RecoveryPageLocators.LEFT_SIDE))
-        self.browser.save_screenshot(f'recovery_page_elems{uuid.uuid4()}.png')
+        self.make_screenshot(f'recovery_page_elems{datetime.now().strftime("%m%d%H%M%S")}.png')
         self.checking_the_selected_elements_in_the_main_content(party, elements)
 
     def should_be_tab_active(self, tab):
