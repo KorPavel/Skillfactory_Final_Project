@@ -23,7 +23,7 @@ def test_user_should_see_reset_password_form(browser):
     page.should_be_footer()
 
 
-def test_user_should_see_phone_auth(browser):
+def test_user_should_see_recover_phone_default(browser):
     """ Тест-кейс. Проверка, что по умолчанию выбрана форма восстановления пароля по телефону """
     go_to_recovery_password(browser)
     page = RecoveryPage(browser, browser.current_url)
@@ -42,13 +42,15 @@ def test_checking_tab_switching(browser):
 
 
 @pytest.mark.positive
+@pytest.mark.xfail(reason='При начальной активности таба "Телефон" нет автоматического '
+                          'переключения таба на "Лицевой счёт".')
 @pytest.mark.parametrize('value', ['phone', 'email', 'login', 'ls'], ids='{}'.format)
 def test_checking_tab_switching_to_valid_values(browser, value):
     """ Тест-кейс. Проверка автоматического переключения табов при вводе
     в поле логина информации соответствующего типа """
     go_to_recovery_password(browser)
     page = RecoveryPage(browser, browser.current_url)
-    page.click_tab_email()
+    # page.click_tab_email()  # Всё будет работать, если начальный таб будет, к примеру, "Почта"
     page.checking_tab_switching_to_insert_valid_values(value, valid_guest_data[value])
 
 
@@ -80,3 +82,9 @@ def test_successful_password_recovery_case(browser, value):
     go_to_recovery_password(browser)
     page = RecoveryPage(browser, browser.current_url)
     page.successful_password_recovery_case(valid_user_data[value])
+
+
+
+
+
+
