@@ -1,3 +1,5 @@
+import os.path
+import os
 from .locators import BasePageLocators
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
@@ -79,12 +81,19 @@ class BasePage:
         phone = support.text.replace(' ', '')
         assert phone in support.get_attribute('href')
 
-    #@staticmethod
+    # @staticmethod
     def checking_the_selected_elements_in_the_main_content(self, side, elements: list):
         """ Проверка выбранных элементов в основном контенте страницы """
         sp = []
         [sp.append(el.text) for el in side]
         content = ' '.join(''.join(sp).split('\n'))
-        # print('\n', content)
+        print('\n', content)
         for elem in elements:
             assert elem in content, f'Элемент «{elem}» отсутствует на странице'
+
+    def make_screenshot(self, pict):
+        scr_shots = 'screenshots'
+        if not os.path.exists(scr_shots):
+            os.mkdir(scr_shots)
+        self.browser.save_screenshot(os.path.join(scr_shots, pict))
+
