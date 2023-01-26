@@ -4,6 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from ..settings import *
 from time import sleep
+from datetime import datetime
 import uuid
 
 
@@ -18,7 +19,7 @@ class AuthPage(BasePage):
         party = self.wait.until(EC.presence_of_all_elements_located(AuthPageLocators.RIGHT_SIDE)) \
             if side == 'right' else \
             self.wait.until(EC.presence_of_all_elements_located(AuthPageLocators.LEFT_SIDE))
-        self.browser.save_screenshot(f'auth_page_elems{uuid.uuid4()}.png')
+        self.make_screenshot(f'auth_page_elems{datetime.now().strftime("%m%d%H%M%S")}.png')
         self.checking_the_selected_elements_in_the_main_content(party, elements)
 
     def click_to_forgot_password_link(self):
@@ -136,6 +137,7 @@ class AuthPage(BasePage):
                 AuthPageLocators.USER_FIRSTNAME, valid_user_data['first_name']))
             assert WebDriverWait(self.browser, 15).until(EC.text_to_be_present_in_element(
                 AuthPageLocators.USER_LASTNAME, valid_user_data['last_name']))
+            self.make_screenshot(f'auth_{tab}_to_account{datetime.now().strftime("%m%d%H%M%S")}.png')
             logout_button = self.wait.until(EC.presence_of_element_located(AuthPageLocators.EXIT_ACCOUNT))
             logout_button.click()
         else:
