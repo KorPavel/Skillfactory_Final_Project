@@ -2,7 +2,7 @@ from .base_page import BasePage
 from .locators import RegistrPageLocators
 from selenium.webdriver.support import expected_conditions as EC
 from ..settings import *
-import uuid
+from datetime import datetime
 
 
 class RegistrPage(BasePage):
@@ -45,7 +45,7 @@ class RegistrPage(BasePage):
         party = self.wait.until(EC.presence_of_all_elements_located(RegistrPageLocators.RIGHT_SIDE)) \
             if side == 'right' else \
             self.wait.until(EC.presence_of_all_elements_located(RegistrPageLocators.LEFT_SIDE))
-        self.browser.save_screenshot(f'register_page_elems{uuid.uuid4()}.png')
+        self.make_screenshot(f'register_page_elems{datetime.now().strftime("%m%d%H%M%S")}.png')
         self.checking_the_selected_elements_in_the_main_content(party, elements)
 
     def should_be_registr_form(self):
