@@ -59,7 +59,7 @@ valid_user_data = {'first_name': os.getenv('valid_first_name'),
 
 valid_guest_data = {'first_name': faker.first_name_male(),
                     'last_name': faker.last_name_male(),
-                    'login': letters_en(12),
+                    'login': f'rtkid_{get_nums(13)}',
                     'email': faker.free_email(),
                     'phone': '+79' + get_nums(9),
                     'ls': get_nums(12),
