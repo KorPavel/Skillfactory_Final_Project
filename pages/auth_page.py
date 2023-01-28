@@ -5,7 +5,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from ..settings import *
 from time import sleep
 from datetime import datetime
-import uuid
 
 
 class AuthPage(BasePage):
@@ -61,7 +60,6 @@ class AuthPage(BasePage):
         acc_link.click()
         sleep(2)
         assert account[1] in self.browser.current_url
-
 
     def click_tab_phone(self):
         """ Метод кликает по табу 'Телефон' и проверяет изменение его цвета """
