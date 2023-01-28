@@ -8,10 +8,11 @@ from .pages.locators import AuthPageLocators, BasePageLocators
 __all__ = ['various_accounts', 'get_nums', 'letters_ru', 'letters_en', 'letters_cn',
            'get_specsymbols', 'valid_guest_data', 'valid_user_data', 'various_mail',
            'various_phone', 'text_errors', 'various_password', 'popular_password',
-           'MAIN_URL']
+           'MAIN_URL', 'random_password', 'virtual_email', 'password_reg']
 
 load_dotenv()
 faker = Faker('ru_RU')
+faker_pwd = Faker()
 
 MAIN_URL = 'https://b2c.passport.rt.ru'
 
@@ -65,6 +66,10 @@ valid_guest_data = {'first_name': faker.first_name_male(),
                     'ls': get_nums(12),
                     'password': 'tEst1Ng%sIte_Rt',
                     'password_confirm': 'tEst1Ng%sIte_Rt'}
+
+random_password = faker_pwd.password()
+virtual_email = 'wwtlpp8e93@dcctb.com'
+password_reg = '&(4Cmt$oz#'
 
 various_mail = [f'{letters_ru(10)}@email.com',
                 f'email@{letters_ru(5)}.com',
