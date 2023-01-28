@@ -1,8 +1,11 @@
 from .base_page import BasePage
 from .locators import RegistrPageLocators
+from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from .Api_RegMail import RegEmail
 from ..settings import *
 from datetime import datetime
+from time import sleep
 
 
 class RegistrPage(BasePage):
@@ -28,6 +31,16 @@ class RegistrPage(BasePage):
         self.filling_registration_fields()
         reg_button = self.wait.until(EC.presence_of_element_located(RegistrPageLocators.REGISTER_BUTTON))
         reg_button.click()
+
+    def reset_new_email(self, new_email):
+        self.user_data['email'] = new_email
+        self.address.click()
+        self.address.clear()
+        self.address.send_keys(self.user_data['email'])
+        reg_button = self.wait.until(EC.presence_of_element_located(RegistrPageLocators.REGISTER_BUTTON))
+        # reg_button.click()
+        print(new_email)
+
 
     def change_user_passwords(self, user_pwd, user_pwd_conf):
         self.user_data['password'] = user_pwd
@@ -181,4 +194,15 @@ class RegistrPage(BasePage):
         self.change_user_passwords(param, param)
         assert self.is_element_present(*RegistrPageLocators.POPULAR_PASSWORD)
         assert self.is_element_present(*RegistrPageLocators.REGISTER_FORM)
+
+    def checking_user_account(self):
+        """ Метод проверяет вход в аккаунт пользователя """
+        user_last_name = WebDriverWait(self.browser, 20).until(EC.presence_of_element_located(
+            RegistrPageLocators.USER_LASTNAME)).text
+        user_first_name = WebDriverWait(self.browser, 20).until(EC.presence_of_element_located(
+            RegistrPageLocators.USER_FIRSTNAME)).text
+
+        self.make_screenshot(f'account_page_{user_first_name}_{user_last_name}.png')
+        assert '/account_b2c/page' in self.browser.current_url, 'Регистрация НЕ пройдена'
+        print(user_first_name, user_last_name)
 
