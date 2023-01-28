@@ -135,4 +135,29 @@ class RecoveryPage(BasePage):
         assert self.wait.until(EC.text_to_be_present_in_element(
             RecoveryPageLocators.MESS_ERROR1, 'Неверный логин или текст с картинки'))
 
+    def click_to_continue(self):
+        further = self.wait.until(EC.presence_of_element_located(RecoveryPageLocators.CONTINUE))
+        further.click()
+
+    def checking_user_should_see_main_page(self):
+        """ Метод проверяет вход в аккаунт пользователя """
+        assert WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(
+            RecoveryPageLocators.PAGE_TITLE, 'Авторизация'), 'Мы не вернулись на страницу авторизации')
+        self.make_screenshot(f'recovery_done_{datetime.now().strftime("%m%d%H%M%S")}.png')
+
+    def insert_new_password_in_pass_area(self):
+        WebDriverWait(self.browser, 15).until(EC.text_to_be_present_in_element(
+            RecoveryPageLocators.PAGE_TEXT, 'Новый пароль должен содержать от 8 до 20 знаков, '
+                                            'включать латинские, заглавные и строчные буквы, цифры '
+                                            'или специальные символы'))
+        new_pwd = random_password
+        print('\n', new_pwd)
+        new_password = self.wait.until(EC.presence_of_element_located(RecoveryPageLocators.PASS_NEW))
+        new_password.send_keys(new_pwd)
+        new_password_conf = self.wait.until(EC.presence_of_element_located(RecoveryPageLocators.PASS_CONF))
+        new_password_conf.send_keys(new_pwd)
+        safe_button = self.wait.until(EC.presence_of_element_located(RecoveryPageLocators.SAFE_BUTTON))
+        safe_button.click()
+        return new_pwd
+
 
