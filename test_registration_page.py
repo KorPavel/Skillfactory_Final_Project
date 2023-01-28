@@ -2,6 +2,7 @@ import pytest
 from .pages.auth_page import AuthPage
 from .pages.registr_page import RegistrPage
 from .settings import *
+from time import sleep
 
 
 def go_to_reg(browser):
@@ -213,7 +214,6 @@ def test_register_passwords_good(browser, password: str, text_password: str):
     page.params_password_length(password, text_password + '-Ok')
 
 
-# @pytest.mark.proba
 @pytest.mark.xfail(reason='Баг! Проходит пароль с китайскими иероглифами')
 @pytest.mark.negative
 @pytest.mark.parametrize("password", ['password', 'password_confirm'], ids="{0}".format)
@@ -233,5 +233,25 @@ def test_register_passwords_popular(browser, text_password: str):
     go_to_reg(browser)
     page = RegistrPage(browser, browser.current_url)
     page.params_password_equal(text_password)
+
+
+@pytest.mark.positive
+def test_successful_registration_from_a_virtual_email(browser):
+    """ Тест-кейс прохождения этапов регистрации на сайте в автоматическом режиме,
+    используя рандомный почтовый ящик с сайта '1secmail.com'. Далее добавляем этот email
+    в файл settings.
+    !!! Тест запускать через командную строку !!! """
+
+    go_to_reg(browser)
+    page = RegistrPage(browser, browser.current_url)
+    virtual_email = page.get_virtual_email()
+    page.change_user_data('email', virtual_email)
+    sleep(30)                       # Время ожидания письма с кодом от Ростелекома ...
+    sdi_code = page.read_last_mail_message(virtual_email)
+    page.insert_reg_code_to_codes_area(sdi_code)
+    page.checking_user_account()
+    page.overwriting_settings(virtual_email)
+
+
 
 
