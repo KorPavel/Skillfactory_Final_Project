@@ -5,6 +5,7 @@ class BasePageLocators:
     FOOTER_RT = (By.CLASS_NAME, 'rt-footer-copyright')
     SUPPORT_PHONE = (By.CLASS_NAME, 'rt-footer-right__support-phone')
     REGISTER_LINK = (By.ID, 'kc-register')
+    SDI_CODES_AREA = (By.CSS_SELECTOR, '[inputmode="numeric"]')   # .sdi-container .code-input__input
 
 
 class AuthPageLocators:
@@ -58,6 +59,9 @@ class RegistrPageLocators:
     REGISTER_CONF_FORM = (By.CLASS_NAME, 'register-confirm-form')
     COUNT_SYMB_ERROR = (By.CSS_SELECTOR, '.new-password-container .rt-input-container__meta--error')
     POPULAR_PASSWORD = (By.ID, 'form-error-message')
+    SDI_CODES_AREA = (By.CSS_SELECTOR, '.sdi-container .code-input__input')
+    USER_LASTNAME = (By.CLASS_NAME, 'user-name__last-name')
+    USER_FIRSTNAME = (By.CLASS_NAME, 'user-name__first-patronymic')
 
 
 class RecoveryPageLocators:
@@ -88,4 +92,6 @@ class RecoveryPageLocators:
     RADIO_SMS = (By.CSS_SELECTOR, '.rt-radio:nth-child(1) input')  # '.rt-radio-group [value="sms"]'
     NEXT2 = (By.CLASS_NAME, 'reset-choice-form__reset-btn')
     BACK2 = (By.CLASS_NAME, 'rt-btn--transparent')
+    USER_LASTNAME = (By.CLASS_NAME, 'user-name__last-name')
+    USER_FIRSTNAME = (By.CLASS_NAME, 'user-name__first-patronymic')
 
