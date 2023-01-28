@@ -2,6 +2,7 @@ import pytest
 from .pages.auth_page import AuthPage
 from .pages.recovery_page import RecoveryPage
 from .settings import *
+from time import sleep
 
 
 def go_to_recovery_password(browser):
@@ -82,6 +83,24 @@ def test_successful_password_recovery_case(browser, value):
     go_to_recovery_password(browser)
     page = RecoveryPage(browser, browser.current_url)
     page.successful_password_recovery_case(valid_user_data[value])
+
+
+@pytest.mark.manual
+def test_automatize_recovery_password(browser):
+    """ Тест-кейс проходит процедуру восстановления пароля в автоматизированном режиме.
+    В тесте требуется присутствие человека для набора кода с картинки капчи.
+    Тест следует запускать с командной строки !!! """
+    go_to_recovery_password(browser)
+    page = RecoveryPage(browser, browser.current_url)
+    page.checking_tab_switching_to_insert_valid_values('email', virtual_email)
+    sleep(30)               # Время для ввода капчи с картинки
+    page.click_to_continue()
+    sleep(30)               # Время ожидания письма с кодом от Ростелекома
+    reg_code = page.read_last_mail_message(virtual_email)
+    page.insert_reg_code_to_codes_area(reg_code)
+    new_password = page.insert_new_password_in_pass_area()
+    page.checking_user_should_see_main_page()
+    page.overwriting_settings(virtual_email, new_password)
 
 
 
