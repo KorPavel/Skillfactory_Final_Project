@@ -31,24 +31,32 @@
 `settings.py` - файл с тестовыми данными  
 В целях сокрытия конфиденциальной информации проекте используется файл `.env` (*не представлен*), для которого нужна библиотека "python-dotenv"
 #### Пример содержания файла `.env`:
-`valid_first_name` = 'Сергей'  
-`valid_last_name` = 'Собянин'  
-`valid_email` = 'co6qnin@mail.ru'  
-`valid_phone` = '+77777777777'  
-`valid_login` = 'rtkid_1234567890123'  
-`valid_password` = 'Mep_C06qH1N'  
+>valid_first_name = '`Сергей`'  
+>valid_last_name = '`Собянин`'  
+>valid_email = '`co6qnin@mail.ru`'  
+>valid_phone = '`+77777777777`'  
+>valid_login = '`rtkid_1234567890123`'  
+>valid_password = '`Mep_C06qH1N`'  
 
 Перед запуском тестов требуется установить необходимые библиотеки командой:
-
->pip install -r requirements.txt
-
+   ```bash
+   pip install -r requirements.txt
+   ```
 Тесты подразделяются на позитивные и негативные.   Для запуска позитивных тестов через терминал следует набрать команду `-m positive`, к примеру:  
->pytest -v -s test_auth_page.py -m positive
-
+   ```bash
+   pytest -v -s tests\test_auth_page.py -m positive
+   ```
 По умолчанию используется браузер Google Chrome. Чтобы запустить тесты в браузере Firefox следует добавить команду `--browser_name=firefox`:
->pytest -v -s test_auth_page.py -m positive --browser_name=firefox
- 
+   ```bash
+   pytest -v -s tests\test_auth_page.py -m positive --browser_name=firefox
+   ```
 Для выбора режима тестирования без графического сопровождения добавляется команда `--headless=true`:  
->pytest -v -s test_auth_page.py -m positive --headless=true
-
+   ```bash
+   pytest -v -s tests\test_auth_page.py -m positive --headless=true
+   ```
+Для запуска какого-либо конкретного теста, следует указать путь до этого теста с разделителем "::", например:
+   ```bash
+   pytest -v -s tests\test_recovery_pass_page.py::TestRecoveryPassword::test_automatize_recovery_password
+   ```
+Внимание! В данном тесте код с картинки необходимо ввести самостоятельно.
 
