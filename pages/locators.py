@@ -9,20 +9,21 @@ class BasePageLocators:
 
 
 class AuthPageLocators:
-    """ Локаторы элементов на странице авторизации """
     LOGO_HEADER = (By.CLASS_NAME, 'what-is-container__logo-container')
     LEFT_SIDE = (By.ID, 'page-left')
     RIGHT_SIDE = (By.ID, 'page-right')
-    TAB_PHONE = (By.ID, 't-btn-tab-phone')
     TAB_MAIL = (By.ID, 't-btn-tab-mail')
+    TAB_PHONE = (By.ID, 't-btn-tab-phone')
     TAB_LOGIN = (By.ID, 't-btn-tab-login')
     TAB_LS = (By.ID, 't-btn-tab-ls')
+    LOGIN_AREA = (By.ID, 'username')
+    PASSWORD_AREA = (By.ID, 'password')
+    PASSWORD_EYE = (By.CLASS_NAME, 'rt-input__eye')
+    SUBMIT_BUTTON = (By.NAME, 'login')
     TAB_TYPE = (By.NAME, 'tab_type')
-    NAME_AREA = (By.ID, 'username')
-    PASS_AREA = (By.ID, 'password')
     FORGOT_PASS = (By.ID, 'forgot_password')
     LOGIN_BUTTON = (By.ID, 'kc-login')
-    BACK_TO_OTP_BTN = (By.ID, 'back_to_otp_btn')    # Кнопка Войти по временному коду
+    BACK_TO_OTP_BTN = (By.ID, 'back_to_otp_btn')  # Кнопка Войти по временному коду
     USER_AGREE = (By.CSS_SELECTOR, '.auth-policy .rt-link')
     VK_LINK = (By.ID, 'oidc_vk')
     OK_LINK = (By.ID, 'oidc_ok')
@@ -32,7 +33,7 @@ class AuthPageLocators:
     OAUTH_WRAP = (By.ID, 'oauth_wrap_content')
     USER_ACCOUNT = (By.CLASS_NAME, 'home-container')
     PAGE_TITLE = (By.CLASS_NAME, 'card-container__title')
-    EXIT_ACCOUNT = (By.ID, 'logout-btn')   # Выход из аккаунта
+    EXIT_ACCOUNT = (By.ID, 'logout-btn')  # Выход из аккаунта
     USER_LASTNAME = (By.CLASS_NAME, 'user-name__last-name')
     USER_FIRSTNAME = (By.CLASS_NAME, 'user-name__first-patronymic')
     MESSAGE_ERR = (By.ID, 'form-error-message')
@@ -40,7 +41,11 @@ class AuthPageLocators:
     MES_PHONE_ERR = (By.CLASS_NAME, 'rt-input-container__meta--error')
 
 
-class RegistrPageLocators:
+class AccountPageLocators:
+    PAGE_ACCOUNT = (By.CSS_SELECTOR, '.home h3:nth-child(2)')
+
+
+class RegisterPageLocators:
     """ Локаторы элементов на странице регистрации """
     LOGO_HEADER = (By.CLASS_NAME, 'main-header__logo-container')
     LEFT_SIDE = (By.ID, 'page-left')
@@ -94,4 +99,5 @@ class RecoveryPageLocators:
     BACK2 = (By.CLASS_NAME, 'rt-btn--transparent')
     USER_LASTNAME = (By.CLASS_NAME, 'user-name__last-name')
     USER_FIRSTNAME = (By.CLASS_NAME, 'user-name__first-patronymic')
+
 
