@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
+
     def __init__(self, browser, url='https://b2c.passport.rt.ru', timeout=10):
         self.browser = browser
         self.url = url
@@ -161,5 +162,4 @@ class BasePage:
             BasePageLocators.SDI_CODES_AREA))
         for fild, digit in zip(digit_area, reg_digit):
             fild.send_keys(digit)
-
 
