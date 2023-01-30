@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 from time import sleep
-from ..settings import *
+from settings import *
 
 
 class RecoveryPage(BasePage):
@@ -136,16 +136,19 @@ class RecoveryPage(BasePage):
             RecoveryPageLocators.MESS_ERROR1, 'Неверный логин или текст с картинки'))
 
     def click_to_continue(self):
+        """ Метод нажимает кнопку ПРОДОЛЖИТЬ """
         further = self.wait.until(EC.presence_of_element_located(RecoveryPageLocators.CONTINUE))
         further.click()
 
-    def checking_user_should_see_main_page(self):
-        """ Метод проверяет вход в аккаунт пользователя """
+    def checking_user_should_see_auth_page(self):
+        """ Метод проверяет возвращение пользователя на страницу авторизации """
         assert WebDriverWait(self.browser, 20).until(EC.text_to_be_present_in_element(
             RecoveryPageLocators.PAGE_TITLE, 'Авторизация'), 'Мы не вернулись на страницу авторизации')
         self.make_screenshot(f'recovery_done_{datetime.now().strftime("%m%d%H%M%S")}.png')
 
     def insert_new_password_in_pass_area(self):
+        """ Метод заполняет поля "Пароль" и "Подтверждение пароля" новым паролем
+        и нажимает кнопку СОХРАНИТЬ """
         WebDriverWait(self.browser, 15).until(EC.text_to_be_present_in_element(
             RecoveryPageLocators.PAGE_TEXT, 'Новый пароль должен содержать от 8 до 20 знаков, '
                                             'включать латинские, заглавные и строчные буквы, цифры '
