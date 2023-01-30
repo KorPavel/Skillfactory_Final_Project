@@ -3,9 +3,10 @@ from random import choice, randint
 from string import punctuation, ascii_lowercase
 from faker import Faker
 from dotenv import load_dotenv
-from .pages.locators import AuthPageLocators, BasePageLocators
+from pages.locators import AuthPageLocators, BasePageLocators
 
-__all__ = ['various_accounts', 'get_nums', 'letters_ru', 'letters_en', 'letters_cn',
+
+__all__ = ['get_nums', 'letters_ru', 'letters_en', 'letters_cn', 'various_accounts',
            'get_specsymbols', 'valid_guest_data', 'valid_user_data', 'various_mail',
            'various_phone', 'text_errors', 'various_password', 'popular_password',
            'MAIN_URL', 'random_password', 'virtual_email', 'password_reg']
@@ -68,8 +69,8 @@ valid_guest_data = {'first_name': faker.first_name_male(),
                     'password_confirm': 'tEst1Ng%sIte_Rt'}
 
 random_password = faker_pwd.password()
-virtual_email = 'wwtlpp8e93@dcctb.com'
-password_reg = '&(4Cmt$oz#'
+virtual_email = 'rjkfq2xhxfl5@dcctb.com'
+password_reg = '!q7B$e*2HG'
 
 various_mail = [f'{letters_ru(10)}@email.com',
                 f'email@{letters_ru(5)}.com',
