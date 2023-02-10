@@ -146,6 +146,7 @@ class AuthPage(BasePage):
         forgot_pass = self.wait.until(EC.presence_of_element_located(AuthPageLocators.FORGOT_PASS))
         forgot_color = forgot_pass.get_attribute('class')
         assert 'animated' in forgot_color, 'Цвет надписи остался серым'
+        assert self.check_color(forgot_pass) == '#ff4f12', "Цвет надписи отличный от оранжевого"
 
     def check_autochange_tabs(self, tab, param):
         """ Проверка автоматической смены таба """
