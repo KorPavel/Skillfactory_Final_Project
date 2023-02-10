@@ -1,5 +1,6 @@
 import os.path
 import os
+import ast
 from .locators import BasePageLocators
 from .Api_RegMail import RegEmail
 from selenium.common.exceptions import NoSuchElementException
@@ -162,4 +163,12 @@ class BasePage:
             BasePageLocators.SDI_CODES_AREA))
         for fild, digit in zip(digit_area, reg_digit):
             fild.send_keys(digit)
+
+    def check_color(self, elem) -> str:
+        """ Проверка цвета веб-элемента. Функция принимает веб-элемент, смотрит значение
+        свойства 'color' в формате rgba и возвращает цвет веб-элемента в формате hex. """
+        rgba = elem.value_of_css_property('color')         # --> rgba(255, 79, 18, 1) <class 'str'>
+        r, g, b, _ = ast.literal_eval(rgba.strip('rgba'))  # --> 255, 79, 18, 1 <class 'int'>
+        hex_value = '#%02x%02x%02x' % (r, g, b)
+        return hex_value
 
