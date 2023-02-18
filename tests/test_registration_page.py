@@ -155,8 +155,8 @@ class TestRegistration:
     @pytest.mark.parametrize("name", [letters_en, get_nums, get_specsymbols, letters_cn],
                              ids="{0.__name__}".format)
     def test_register_name_equivalence(self, browser, type_name, name):
-        """ Негативные тест-кейсы. Проверка ИМЕНИ/ФАМИЛИИ пользователя по классам эквивалентности
-        при валидной длине имени """
+        """ Негативные тест-кейсы. Проверка ИМЕНИ/ФАМИЛИИ пользователя по классам
+        эквивалентности (недопустимые значения) при валидной длине имени """
         go_to_reg(browser)
         page = RegisterPage(browser, browser.current_url)
         page.params_name_length(type_name, name, False)
@@ -184,7 +184,8 @@ class TestRegistration:
     @pytest.mark.negative
     @pytest.mark.parametrize("phone", various_phone, ids="{0}".format)
     def test_register_phone_equivalence_bad(self, browser, phone):
-        """ Негативные тест-кейсы. Проверка ТЕЛЕФОННЫХ НОМЕРОВ по классам эквивалентности """
+        """ Негативные тест-кейсы. Проверка ТЕЛЕФОННЫХ НОМЕРОВ
+        по классам эквивалентности (недопустимые значения). """
         go_to_reg(browser)
         page = RegisterPage(browser, browser.current_url)
         page.params_address_equal("phone", phone, exp=False)
