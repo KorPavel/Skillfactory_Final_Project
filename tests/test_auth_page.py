@@ -179,7 +179,8 @@ class TestAuth:
     @pytest.mark.parametrize('symbols', [letters_en, letters_ru, get_specsymbols],
                              ids='digits+{0.__name__} symbols'.format)
     def test_check_valid_phone_symbols_bad(self, browser, symbols):
-        """ Негативные тест-кейсы. Классы эквивалентности. Проверка корректности введённого номера телефона """
+        """ Негативные тест-кейсы. Классы эквивалентности (недопустимые значения).
+        Проверка корректности введённого номера телефона """
         page = AuthPage(browser)
         page.open()
         tab = 'phone'
@@ -189,7 +190,8 @@ class TestAuth:
     @pytest.mark.parametrize('symbols', [letters_en, letters_ru, get_specsymbols],
                              ids='digits+{0.__name__} symbols'.format)
     def test_check_valid_ls_symbols_bad(self, browser, symbols):
-        """ Негативные тест-кейсы. Классы эквивалентности. Проверка корректности введённого лицевого счёта """
+        """ Негативные тест-кейсы. Классы эквивалентности (недопустимые значения).
+        Проверка корректности введённого лицевого счёта. """
         page = AuthPage(browser)
         page.open()
         tab = 'ls'
