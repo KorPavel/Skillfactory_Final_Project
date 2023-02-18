@@ -33,7 +33,7 @@
 #### Пример содержания файла `.env`:
 >valid_first_name = '`Сергей`'  
 >valid_last_name = '`Собянин`'  
->valid_email = '`co6qnin@mail.ru`'  
+>valid_email = '`co6qnin@email.ru`'  
 >valid_phone = '`+77777777777`'  
 >valid_login = '`rtkid_1234567890123`'  
 >valid_password = '`Mep_C06qH1N`'  
