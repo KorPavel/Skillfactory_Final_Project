@@ -29,6 +29,7 @@ class RegisterPage(BasePage):
         self.filling_registration_fields()
         reg_button = self.wait.until(EC.presence_of_element_located(RegisterPageLocators.REGISTER_BUTTON))
         reg_button.click()
+        return self.user_data
 
     def reset_new_email(self, new_email):
         self.user_data['email'] = new_email
@@ -91,8 +92,9 @@ class RegisterPage(BasePage):
         """ Проверка валидных значений пользователя """
         user_data_key = 'email'
         user_data_val = self.user_data[address]
-        self.change_user_data(user_data_key, user_data_val)
+        user_data_dict = self.change_user_data(user_data_key, user_data_val)
         assert self.is_element_present(*RegisterPageLocators.REGISTER_CONF_FORM)
+        return user_data_dict
 
     def send_all_fields_is_empty(self):
         for el in [self.first_name, self.last_name, self.address, self.pwd, self.pwd_conf]:
@@ -117,6 +119,7 @@ class RegisterPage(BasePage):
         else:
             assert self.is_element_present(*RegisterPageLocators.TEXT_ERROR)
             assert self.is_element_present(*RegisterPageLocators.REGISTER_FORM)
+        return user_data_val
 
     def params_address_length(self, type_data, *param, exp=True):
         """ Проверка длины телефонного номера пользователя """
@@ -135,6 +138,7 @@ class RegisterPage(BasePage):
         else:
             assert self.is_element_present(*RegisterPageLocators.TEXT_ERROR)
             assert self.is_element_present(*RegisterPageLocators.REGISTER_FORM)
+        return user_data_val
 
     def params_password_length(self, type_pass: str, param: int | str, exp=True):
         """ Проверка длины пароля """
@@ -151,6 +155,7 @@ class RegisterPage(BasePage):
             assert error_text.text == 'Пароли не совпадают'
         else:
             assert error_text.text in text_errors
+        return user_data_val
 
     def valid_passwords_equal(self, exp=True):
         """ Проверка тождества ПАРОЛЯ и ПАРОЛЯ ПОДТВЕРЖДЕНИЯ при их валидных значениях """
@@ -164,6 +169,7 @@ class RegisterPage(BasePage):
             self.change_user_passwords(user_pwd_val, user_pwd_conf_val)
             assert self.is_element_present(*RegisterPageLocators.COUNT_SYMB_ERROR)
             assert self.is_element_present(*RegisterPageLocators.REGISTER_FORM)
+        return user_pwd_val, user_pwd_conf_val
 
     def params_address_equal(self, type_address, param, exp=True):
         """ Проверка валидности адреса """
@@ -185,6 +191,7 @@ class RegisterPage(BasePage):
         else:
             assert self.is_element_present(*RegisterPageLocators.TEXT_ERROR)
             assert self.is_element_present(*RegisterPageLocators.REGISTER_FORM)
+        return user_data_val
 
     def params_password_equal(self, param: str):
         """ Проверка валидности пароля """
