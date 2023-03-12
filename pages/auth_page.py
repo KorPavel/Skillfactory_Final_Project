@@ -185,6 +185,7 @@ class AuthPage(BasePage):
             else:
                 assert self.wait.until(EC.text_to_be_present_in_element(
                     AuthPageLocators.LOG_AREA_NAME, 'Логин'))
+        return param
 
     def check_email_correct(self, user, server, exp=True):
         """ Проверка корректности имени адреса электронной почты """
@@ -199,6 +200,7 @@ class AuthPage(BasePage):
                 AuthPageLocators.LOG_AREA_NAME, 'Логин'),
                 'Поле приняло длину адреса электронной почты, большую, '
                 'чем предусмотрено стандартом')
+        return param
 
     def check_login_correct(self, param, exp=True):
         """ Проверка значений и длины логина"""
