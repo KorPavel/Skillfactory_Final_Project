@@ -69,8 +69,8 @@ valid_guest_data = {'first_name': faker.first_name_male(),
                     'password_confirm': 'tEst1Ng%sIte_Rt'}
 
 random_password = faker_pwd.password()
-virtual_email = 'rjkfq2xhxfl5@dcctb.com'
-password_reg = '!q7B$e*2HG'
+virtual_email = 'r4ev2k@qiott.com'
+password_reg = 'Ph66CjohL@'
 
 various_mail = [f'{letters_ru(10)}@email.com',
                 f'email@{letters_ru(5)}.com',
@@ -85,7 +85,7 @@ various_mail = [f'{letters_ru(10)}@email.com',
                 'email@ .com',
                 'email@email com',
                 'email@email. com',
-                'email@e mail.com'
+                'email@e mail.com',
                 'e mail@email.com',
                 'email@email.c om']
 
