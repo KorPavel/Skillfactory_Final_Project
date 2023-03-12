@@ -1,7 +1,22 @@
-import pytest, os, requests, time
+import pytest, os, time
+from pages.check_count import counting
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+
+
+# Функция для подсчёта количества запусков тестов.
+# Для обнуления счётчика нужно установить значение переменной counting = 0 в файле check_count.
+def counter(func, cnt=counting):
+    def wrapper(*args):
+        nonlocal cnt
+        cnt += 1
+        with open(r'Notebook.txt', 'a', encoding='utf8') as file, open(r'pages/check_count.py', 'w') as f_cnt:
+            file.write(f'Тест № {cnt}\n')
+            f_cnt.write(f'counting = {cnt}')
+        return func(*args)
+    return wrapper
 
 
 # получает значения из консоли
@@ -81,12 +96,26 @@ def browser(request):
     print("\nquit browser..")
     browser.quit()
 
+
 @pytest.fixture(autouse=True)
-def time_delta():
+@counter
+def foo():
+    pass
+
+
+@pytest.fixture(autouse=True)
+def time_delta_teardown(request):
+    head = f"{'░' * 12}\n░ {datetime.now().strftime('%H:%M:%S')} ░" \
+           f"\t>>> {request.node.name.capitalize().replace('_', ' ').replace('[', ' [')}\n{'░' * 12}\n"
+    with open(r'Notebook.txt', 'a', encoding='utf8') as file:
+        file.write(head)
     start_time = time.time()
     yield
     end_time = time.time()
-    print (f"\nТест шёл: {round(end_time - start_time, 3)} сек.")
+    with open(r'Notebook.txt', 'a', encoding='utf8') as file:
+        file.write(f"{'=' * 20}  Тест шёл: {round(end_time - start_time, 3)} сек.  {'=' * 20}\n\n")
+    print(f"\nТест шёл: {round(end_time - start_time, 3)} сек.")
+
 
 # Supports console options (pytest):
 # --browser_name= (firefox or chrome or yandex)
@@ -94,6 +123,7 @@ def time_delta():
 # --headless=true (default='None')
 # --width_window=(default='1920')
 # --height_window=(default='1080')
+
 
 ''' 
 pytest -v -s  --tb=line --reruns 1  --browser_name=chrome --width_window=1024 --height_window=768
